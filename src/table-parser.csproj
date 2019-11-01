@@ -53,22 +53,19 @@
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
-    <ItemGroup>
-      <Compile Include="checking\HiddenTests.cs" />
-      <Compile Include="Git.Solution.cs" />
-      <Compile Include="GitTests.cs" />
-      <Compile Include="Program.cs" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Content Include="Git.cs" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Reference Include="nunit.framework">
-        <HintPath>nunit.framework.dll</HintPath>
-      </Reference>
-    </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Git.cs" />
+    <Compile Include="GitTests.cs" />
+    <Compile Include="Program.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Git.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="nunit.framework">
+      <HintPath>nunit.framework.dll</HintPath>
+    </Reference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

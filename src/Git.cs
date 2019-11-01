@@ -58,8 +58,13 @@ namespace GitTask
                     (x, y) => x.CommitNumber.CompareTo(y.CommitNumber) 
                     )
                 );
-
-            fileContent = commitsFiles[fileNumber][indexOfNearestCommit].FileContent;
+            if (indexOfNearestCommit == -1) {
+                fileContent = -1;
+            } else if (indexOfNearestCommit >= commitsFiles[fileNumber].Count) {
+                fileContent = commitsFiles[fileNumber].Last().FileContent;
+            } else {
+                fileContent = commitsFiles[fileNumber][indexOfNearestCommit].FileContent;
+            }
             
             return fileContent;
         }

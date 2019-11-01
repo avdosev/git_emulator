@@ -1,4 +1,6 @@
+using System;
 using NUnit.Framework;
+using GitTask;
 
 namespace GitTask
 {
@@ -17,6 +19,15 @@ namespace GitTask
         [Test]
         public void YouTried()
         {
+            try {
+                sut.Checkout(0, 1);
+            }
+            catch (ArgumentException ) {
+                Assert.True(true, "OK");
+            }
+            catch (Exception e) {
+                Assert.Fail(e.Message);
+            }
             Assert.True(true, "Никто не написал этот тест...");
         }
    }
