@@ -58,14 +58,20 @@ namespace GitTask
                     (x, y) => x.CommitNumber.CompareTo(y.CommitNumber) 
                     )
                 );
-            if (indexOfNearestCommit == -1) {
-                fileContent = -1;
-            } else if (indexOfNearestCommit >= commitsFiles[fileNumber].Count) {
-                fileContent = commitsFiles[fileNumber].Last().FileContent;
-            } else {
-                fileContent = commitsFiles[fileNumber][indexOfNearestCommit].FileContent;
-            }
             
+            // бинарный поиск в мире сишарпа - самое дрыстнявое изобретение даунов
+            // где мои стл итераторы(((
+            if (indexOfNearestCommit < 0) {
+                indexOfNearestCommit = ~indexOfNearestCommit - 1;
+                if (indexOfNearestCommit < 0) {
+                    return -1;
+                }
+                
+
+            } 
+            
+            fileContent = commitsFiles[fileNumber][indexOfNearestCommit].FileContent;
+
             return fileContent;
         }
     }

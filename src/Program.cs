@@ -19,8 +19,8 @@ namespace GitTask
                 ).ToArray();
 
 
-            var resultArray = new int?[commandArgs.Length];
-
+            var resultArray = new int?[commandNames.Length];
+            
             Git git = null;
 
             for (int i = 0; i < commandNames.Length; i++)
