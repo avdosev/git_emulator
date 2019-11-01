@@ -5,7 +5,7 @@ using System.Linq;
 namespace GitTask
 {
     internal class GitCommit {
-        public int FileContent = -1, CommitNumber = -1;
+        public int FileContent, CommitNumber;
 
         public GitCommit(int fileContent, int commitNumber) {
             FileContent = fileContent;
@@ -16,31 +16,36 @@ namespace GitTask
     public class Git {
         private List<List<GitCommit>> commitsFiles;
         private List<int> currentFiles;
+        private SortedSet<int> indexsChangedFiles;
         private int countCallsCommit = -1;
 
         public Git(int filesCount) {
             commitsFiles = new List<List<GitCommit>>(filesCount);
             currentFiles = new List<int>(filesCount);
+            indexsChangedFiles = new SortedSet<int>();
             for (var filename = 0; filename < filesCount; filename++) {
                 commitsFiles.Add(new List<GitCommit>());
-                commitsFiles[filename].Add(new GitCommit(-1, -1));
-                currentFiles.Add(-1);
+                commitsFiles[filename].Add(new GitCommit(0, -1));
+                currentFiles.Add(0);
             }
         }
         ///  меняет содержимое файла fileNumber на value
         public void Update(int fileNumber, int value) {
             currentFiles[fileNumber] = value;
+            indexsChangedFiles.Add(fileNumber);
         }
         
         /// фиксирует текущее состояние файлов, возвращает commitNumber: число раз, которое был вызван Commit() минус 1
         public int Commit() {
             countCallsCommit += 1;
 
-            for (var filename = 0; filename < currentFiles.Count; filename++) {
+            foreach (var filename in indexsChangedFiles) {
                 if (currentFiles[filename] != commitsFiles[filename].Last().FileContent) {
                     commitsFiles[filename].Add(new GitCommit(currentFiles[filename], countCallsCommit));
                 }
             }
+            
+            indexsChangedFiles.Clear();
             
             return countCallsCommit;
         }
@@ -64,7 +69,7 @@ namespace GitTask
             if (indexOfNearestCommit < 0) {
                 indexOfNearestCommit = ~indexOfNearestCommit - 1;
                 if (indexOfNearestCommit < 0) {
-                    return -1;
+                    return 0;
                 }
                 
 
